@@ -86,7 +86,6 @@ void SYSTEM_Initialize(void) {
     SPI1_Initialize();
     TMR2_Initialize();
     PWM7_Initialize();
-    CWG1_Initialize();
     EUSART_Initialize();
 }
 
