@@ -15,13 +15,13 @@
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Driver Version    :  1.02
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        MPLAB             :  MPLAB X 3.40
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -48,18 +48,17 @@
 #include "interrupt_manager.h"
 #include "mcc.h"
 
-void interrupt INTERRUPT_InterruptManager (void)
-{
-   // interrupt handler
-//    if(PIE4bits.TMR2IE == 1 && PIR4bits.TMR2IF == 1)
-//    {
-        TMR2_ISR();
-//    }
-//    else
-//    {
-//        Unhandled Interrupt
-//    }
+void interrupt INTERRUPT_InterruptManager(void) {
+    // interrupt handler
+    //    if(PIE4bits.TMR2IE == 1 && PIR4bits.TMR2IF == 1)
+    //    {
+    TMR2_ISR();
+    //    }
+    //    else
+    //    {
+    //        Unhandled Interrupt
+    //    }
 }
 /**
  End of File
-*/
+ */

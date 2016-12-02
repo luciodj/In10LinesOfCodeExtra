@@ -36,7 +36,6 @@
         <itemPath>mcc_generated_files/interrupt_manager.c</itemPath>
         <itemPath>mcc_generated_files/mcc.c</itemPath>
         <itemPath>mcc_generated_files/pin_manager.c</itemPath>
-        <itemPath>mcc_generated_files/cwg1.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>AudioDAC.c</itemPath>
@@ -49,6 +48,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>/Users/m91329/Developer/MPLABXProjects/XPRESS/WAVPlayer.X/MyConfig.mc3</itemPath>
+      <itemPath>MyConfig.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

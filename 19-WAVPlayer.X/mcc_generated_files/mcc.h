@@ -13,13 +13,13 @@
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Version           :  1.02
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        MPLAB             :  MPLAB X 3.40
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -41,7 +41,7 @@
 
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
-*/
+ */
 
 #ifndef MCC_H
 #define	MCC_H
@@ -88,4 +88,4 @@ void OSCILLATOR_Initialize(void);
 #endif	/* MCC_H */
 /**
  End of File
-*/
+ */

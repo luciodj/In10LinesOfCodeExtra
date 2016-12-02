@@ -13,13 +13,13 @@
   @Description
     This source file provides APIs for TMR2.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Driver Version    :  1.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        MPLAB             :  MPLAB X 3.40
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -45,36 +45,34 @@
 
 /**
   Section: Included Files
-*/
+ */
 
 #include <xc.h>
 #include "tmr2.h"
 
-
 /**
   Section: TMR2 APIs
-*/
+ */
 
-void TMR2_Initialize(void)
-{
+void TMR2_Initialize(void) {
     // Set TMR2 to the options selected in the User Interface
 
-    // T2CKPS 1:1; T2OUTPS 1:1; TMR2ON on; 
+    // T2CKPS 1:1; T2OUTPS 1:1; TMR2ON on;
     T2CON = 0x00;
 
-    // T2CS FOSC/4; 
+    // T2CS FOSC/4;
     T2CLKCON = 0x01;
 
-    // T2PSYNC Not Synchronized; T2MODE Software control; T2CKPOL Rising Edge; T2CKSYNC Not Synchronized; 
+    // T2PSYNC Not Synchronized; T2MODE Software control; T2CKPOL Rising Edge; T2CKSYNC Not Synchronized;
     T2HLT = 0x00;
 
-    // T2RSEL T2CKIPPS pin; 
+    // T2RSEL T2CKIPPS pin;
     T2RST = 0x00;
 
-    // PR2 176; 
+    // PR2 176;
     T2PR = 0xB0;
 
-    // TMR2 0; 
+    // TMR2 0;
     T2TMR = 0x00;
 
     // Clearing IF flag before enabling the interrupt.
@@ -90,42 +88,35 @@ void TMR2_Initialize(void)
     TMR2_Start();
 }
 
-void TMR2_ModeSet(TMR2_HLT_MODE mode)
-{
-   // Configure different types HLT mode
+void TMR2_ModeSet(TMR2_HLT_MODE mode) {
+    // Configure different types HLT mode
     T2HLTbits.MODE = mode;
 }
 
-void TMR2_ExtResetSourceSet(TMR2_HLT_EXT_RESET_SOURCE reset)
-{
+void TMR2_ExtResetSourceSet(TMR2_HLT_EXT_RESET_SOURCE reset) {
     //Configure different types of HLT external reset source
     T2RSTbits.RSEL = reset;
 }
 
-void TMR2_Start(void)
-{
+void TMR2_Start(void) {
     // Start the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 1;
 }
 
-void TMR2_StartTimer(void)
-{
+void TMR2_StartTimer(void) {
     TMR2_Start();
 }
 
-void TMR2_Stop(void)
-{
+void TMR2_Stop(void) {
     // Stop the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 0;
 }
 
-void TMR2_StopTimer(void)
-{
+void TMR2_StopTimer(void) {
     TMR2_Stop();
 }
 
-uint8_t TMR2_Counter8BitGet(void)
-{
+uint8_t TMR2_Counter8BitGet(void) {
     uint8_t readVal;
 
     readVal = TMR2;
@@ -133,54 +124,46 @@ uint8_t TMR2_Counter8BitGet(void)
     return readVal;
 }
 
-uint8_t TMR2_ReadTimer(void)
-{
+uint8_t TMR2_ReadTimer(void) {
     return TMR2_Counter8BitGet();
 }
 
-void TMR2_Counter8BitSet(uint8_t timerVal)
-{
+void TMR2_Counter8BitSet(uint8_t timerVal) {
     // Write to the Timer2 register
     TMR2 = timerVal;
 }
 
-void TMR2_WriteTimer(uint8_t timerVal)
-{
+void TMR2_WriteTimer(uint8_t timerVal) {
     TMR2_Counter8BitSet(timerVal);
 }
 
-void TMR2_Period8BitSet(uint8_t periodVal)
-{
-   PR2 = periodVal;
+void TMR2_Period8BitSet(uint8_t periodVal) {
+    PR2 = periodVal;
 }
 
-void TMR2_LoadPeriodRegister(uint8_t periodVal)
-{
-   TMR2_Period8BitSet(periodVal);
+void TMR2_LoadPeriodRegister(uint8_t periodVal) {
+    TMR2_Period8BitSet(periodVal);
 }
 
-void TMR2_ISR(void)
-{
+void TMR2_ISR(void) {
 
     // clear the TMR2 interrupt flag
     PIR4bits.TMR2IF = 0;
 
-    if(TMR2_InterruptHandler)
-    {
+    if (TMR2_InterruptHandler) {
         TMR2_InterruptHandler();
     }
 }
 
-
-void TMR2_SetInterruptHandler(void* InterruptHandler){
+void TMR2_SetInterruptHandler(void* InterruptHandler) {
     TMR2_InterruptHandler = InterruptHandler;
 }
 
-void TMR2_DefaultInterruptHandler(void){
+void TMR2_DefaultInterruptHandler(void) {
     // add your TMR2 interrupt custom code
     // or set custom function using TMR2_SetInterruptHandler()
 }
 
 /**
   End of File
-*/
+ */

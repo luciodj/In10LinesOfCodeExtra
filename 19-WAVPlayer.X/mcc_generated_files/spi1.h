@@ -13,13 +13,13 @@
   @Description
     This header file provides APIs for MSSP1.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*******************************************************************************/
+        MPLAB             :  MPLAB X 3.40
+ *******************************************************************************/
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -48,7 +48,7 @@
 
 /**
   Section: Included Files
-*/
+ */
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -56,220 +56,220 @@
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-    extern "C" {
+extern "C" {
 
 #endif
 
-/**
-  Section: Macro Declarations
-*/
+    /**
+      Section: Macro Declarations
+     */
 
 #define DUMMY_DATA 0x0
 
-/**
-  Section: SPI1 Module APIs
-*/
+    /**
+      Section: SPI1 Module APIs
+     */
 
-/**
-  @Summary
-    Initializes the SPI1
+    /**
+      @Summary
+        Initializes the SPI1
 
-  @Description
-    This routine initializes the SPI1.
-    This routine must be called before any other MSSP1 routine is called.
-    This routine should only be called once during system initialization.
+      @Description
+        This routine initializes the SPI1.
+        This routine must be called before any other MSSP1 routine is called.
+        This routine should only be called once during system initialization.
 
-  @Preconditions
-    None
+      @Preconditions
+        None
 
-  @Param
-    None
+      @Param
+        None
 
-  @Returns
-    None
+      @Returns
+        None
 
-  @Comment
-    
+      @Comment
 
-  @Example
-    <code>
-    uint8_t     myWriteBuffer[MY_BUFFER_SIZE];
-    uint8_t     myReadBuffer[MY_BUFFER_SIZE];
-    uint8_t     writeData;
-    uint8_t     readData;
-    uint8_t     total;
 
-    SPI1_Initialize();
+      @Example
+        <code>
+        uint8_t     myWriteBuffer[MY_BUFFER_SIZE];
+        uint8_t     myReadBuffer[MY_BUFFER_SIZE];
+        uint8_t     writeData;
+        uint8_t     readData;
+        uint8_t     total;
 
-    total = 0;
-    do
-    {
-        total = SPI1_Exchange8bitBuffer(&myWriteBuffer[total], MY_BUFFER_SIZE - total, &myWriteBuffer[total]);
+        SPI1_Initialize();
 
-        // Do something else...
+        total = 0;
+        do
+        {
+            total = SPI1_Exchange8bitBuffer(&myWriteBuffer[total], MY_BUFFER_SIZE - total, &myWriteBuffer[total]);
 
-    } while(total < MY_BUFFER_SIZE);
+            // Do something else...
 
-    readData = SPI1_Exchange8bit(writeData);
-    </code>
- */
-void SPI1_Initialize(void);
-void SPI1_InitializeSlow(void);
+        } while(total < MY_BUFFER_SIZE);
 
-/**
-  @Summary
-    Exchanges a data byte over SPI1
+        readData = SPI1_Exchange8bit(writeData);
+        </code>
+     */
+    void SPI1_Initialize(void);
+    void SPI1_InitializeSlow(void);
 
-  @Description
-    This routine exchanges a data byte over SPI1 bus.
-    This is a blocking routine.
+    /**
+      @Summary
+        Exchanges a data byte over SPI1
 
-  @Preconditions
-    The SPI1_Initialize() routine should be called
-    prior to use this routine.
+      @Description
+        This routine exchanges a data byte over SPI1 bus.
+        This is a blocking routine.
 
-  @Param
-    data - data byte to be transmitted over SPI1 bus
+      @Preconditions
+        The SPI1_Initialize() routine should be called
+        prior to use this routine.
 
-  @Returns
-    The received byte over SPI1 bus
+      @Param
+        data - data byte to be transmitted over SPI1 bus
 
-  @Example
-    <code>
-    uint8_t     writeData;
-    uint8_t     readData;
-    uint8_t     readDummy;
+      @Returns
+        The received byte over SPI1 bus
 
-    SPI1_Initialize();
+      @Example
+        <code>
+        uint8_t     writeData;
+        uint8_t     readData;
+        uint8_t     readDummy;
 
-    // for transmission over SPI bus
-    readDummy = SPI1_Exchange8bit(writeData);
+        SPI1_Initialize();
 
-    // for reception over SPI bus
-    readData = SPI1_Exchange8bit(DUMMY_DATA);
-    </code>
- */
-uint8_t SPI1_Exchange8bit(uint8_t data);
+        // for transmission over SPI bus
+        readDummy = SPI1_Exchange8bit(writeData);
 
- /**
-  @Summary
-    Exchanges buffer of data over SPI1
+        // for reception over SPI bus
+        readData = SPI1_Exchange8bit(DUMMY_DATA);
+        </code>
+     */
+    uint8_t SPI1_Exchange8bit(uint8_t data);
 
-  @Description
-    This routine exchanges buffer of data (of size one byte) over SPI1 bus.
-    This is a blocking routine.
+    /**
+     @Summary
+       Exchanges buffer of data over SPI1
 
-  @Preconditions
-    The SPI1_Initialize() routine should be called
-    prior to use this routine.
+     @Description
+       This routine exchanges buffer of data (of size one byte) over SPI1 bus.
+       This is a blocking routine.
 
-  @Param
-    dataIn  - Buffer of data to be transmitted over SPI1.
-    bufLen  - Number of bytes to be exchanged.
-    dataOut - Buffer of data to be received over SPI1.
+     @Preconditions
+       The SPI1_Initialize() routine should be called
+       prior to use this routine.
 
-  @Returns
-    Number of bytes exchanged over SPI1.
+     @Param
+       dataIn  - Buffer of data to be transmitted over SPI1.
+       bufLen  - Number of bytes to be exchanged.
+       dataOut - Buffer of data to be received over SPI1.
 
-  @Example
-    <code>
-    uint8_t     myWriteBuffer[MY_BUFFER_SIZE];
-    uint8_t     myReadBuffer[MY_BUFFER_SIZE];
-    uint8_t     total;
+     @Returns
+       Number of bytes exchanged over SPI1.
 
-    SPI1_Initialize();
+     @Example
+       <code>
+       uint8_t     myWriteBuffer[MY_BUFFER_SIZE];
+       uint8_t     myReadBuffer[MY_BUFFER_SIZE];
+       uint8_t     total;
 
-    total = 0;
-    do
-    {
-        total = SPI1_Exchange8bitBuffer(&myWriteBuffer[total], MY_BUFFER_SIZE - total, &myWriteBuffer[total]);
+       SPI1_Initialize();
 
-        // Do something else...
+       total = 0;
+       do
+       {
+           total = SPI1_Exchange8bitBuffer(&myWriteBuffer[total], MY_BUFFER_SIZE - total, &myWriteBuffer[total]);
 
-    } while(total < MY_BUFFER_SIZE);
-    </code>
- */
-uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
+           // Do something else...
 
-/**
-  @Summary
-    Gets the SPI1 buffer full status
+       } while(total < MY_BUFFER_SIZE);
+       </code>
+     */
+    uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
 
-  @Description
-    This routine gets the SPI1 buffer full status
+    /**
+      @Summary
+        Gets the SPI1 buffer full status
 
-  @Preconditions
-    The SPI1_Initialize() routine should be called
-    prior to use this routine.
+      @Description
+        This routine gets the SPI1 buffer full status
 
-  @Param
-    None
+      @Preconditions
+        The SPI1_Initialize() routine should be called
+        prior to use this routine.
 
-  @Returns
-    true  - if the buffer is full
-    false - if the buffer is not full.
+      @Param
+        None
 
-  @Example
-    Refer to SPI1_Initialize() for an example
- */
-bool SPI1_IsBufferFull(void);
+      @Returns
+        true  - if the buffer is full
+        false - if the buffer is not full.
 
-/**
-  @Summary
-    Gets the status of write collision.
+      @Example
+        Refer to SPI1_Initialize() for an example
+     */
+    bool SPI1_IsBufferFull(void);
 
-  @Description
-    This routine gets the status of write collision.
+    /**
+      @Summary
+        Gets the status of write collision.
 
-  @Preconditions
-    The SPI1_Initialize() routine must have been called prior to use this routine.
+      @Description
+        This routine gets the status of write collision.
 
-  @Param
-    None
+      @Preconditions
+        The SPI1_Initialize() routine must have been called prior to use this routine.
 
-  @Returns
-    true  - if the write collision has occurred.
-    false - if the write collision has not occurred.
+      @Param
+        None
 
-  @Example
-    if(SPI1_HasWriteCollisionOccured())
-    {
-        SPI1_ClearWriteCollisionStatus();
-    }
-*/
-bool SPI1_HasWriteCollisionOccured(void);
+      @Returns
+        true  - if the write collision has occurred.
+        false - if the write collision has not occurred.
 
-/**
-  @Summary
-    Clears the status of write collision.
+      @Example
+        if(SPI1_HasWriteCollisionOccured())
+        {
+            SPI1_ClearWriteCollisionStatus();
+        }
+     */
+    bool SPI1_HasWriteCollisionOccured(void);
 
-  @Description
-    This routine clears the status of write collision.
+    /**
+      @Summary
+        Clears the status of write collision.
 
-  @Preconditions
-    The SPI1_Initialize() routine must have been called prior to use this routine.
+      @Description
+        This routine clears the status of write collision.
 
-  @Param
-    None
+      @Preconditions
+        The SPI1_Initialize() routine must have been called prior to use this routine.
 
-  @Returns
-    None
+      @Param
+        None
 
-  @Example
-    if(SPI1_HasWriteCollisionOccured())
-    {
-        SPI1_ClearWriteCollisionStatus();
-    }
-*/
-void SPI1_ClearWriteCollisionStatus(void);
+      @Returns
+        None
+
+      @Example
+        if(SPI1_HasWriteCollisionOccured())
+        {
+            SPI1_ClearWriteCollisionStatus();
+        }
+     */
+    void SPI1_ClearWriteCollisionStatus(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-    }
+}
 
 #endif
 
 #endif // _SPI1_H
 /**
  End of File
-*/
+ */

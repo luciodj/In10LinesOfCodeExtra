@@ -15,13 +15,13 @@
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        MPLAB             :  MPLAB X 3.40
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -43,7 +43,7 @@
 
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
-*/
+ */
 
 #ifndef INTERRUPT_MANAGER_H
 #define INTERRUPT_MANAGER_H
@@ -112,4 +112,4 @@ void interrupt INTERRUPT_InterruptManager(void);
 #endif  // INTERRUPT_MANAGER_H
 /**
  End of File
-*/
+ */

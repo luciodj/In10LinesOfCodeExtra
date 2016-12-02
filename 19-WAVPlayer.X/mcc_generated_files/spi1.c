@@ -13,13 +13,13 @@
   @Description
     This source file provides APIs for MSSP1.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.0
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        MPLAB             :  MPLAB X 3.40
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -45,91 +45,76 @@
 
 /**
   Section: Included Files
-*/
+ */
 
 #include <xc.h>
 #include "spi1.h"
 
 /**
   Section: Macro Declarations
-*/
+ */
 
 #define SPI_RX_IN_PROGRESS 0x0
 
 /**
   Section: Module APIs
-*/
+ */
 
-void SPI1_Initialize(void)
-{
+void SPI1_Initialize(void) {
     // Set the SPI1 module to the options selected in the User Interface
-    
-    // SMP Middle; CKE Active to Idle; 
+
+    // SMP Middle; CKE Active to Idle;
     SSP1STAT = 0x40;
-    
-    // SSPEN enabled; CKP Idle:Low, Active:High; SSPM FOSC/4; 
+
+    // SSPEN enabled; CKP Idle:Low, Active:High; SSPM FOSC/4;
     SSP1CON1 = 0x20;
-    
-    // SSPADD 0; 
+
+    // SSPADD 0;
     SSP1ADD = 0x00;
 }
 
-void SPI1_InitializeSlow(void)
-{
+void SPI1_InitializeSlow(void) {
     // Set the SPI1 module to start with a slow clock
-    
-    // SMP Middle; CKE Active to Idle; 
+
+    // SMP Middle; CKE Active to Idle;
     SSP1STAT = 0x40;
-    
-    // SSPEN enabled; CKP Idle:Low, Active:High; SSPM FOSC/4 / SSPADD; 
+
+    // SSPEN enabled; CKP Idle:Low, Active:High; SSPM FOSC/4 / SSPADD;
     SSP1CON1 = 0x2A;
-    
-    // SSPADD 39; 
+
+    // SSPADD 39;
     SSP1ADD = 0x27;
 }
 
-uint8_t SPI1_Exchange8bit(uint8_t data)
-{
+uint8_t SPI1_Exchange8bit(uint8_t data) {
     // Clear the Write Collision flag, to allow writing
     SSP1CON1bits.WCOL = 0;
 
     SSP1BUF = data;
 
-    while(SSP1STATbits.BF == SPI_RX_IN_PROGRESS)
-    {
+    while (SSP1STATbits.BF == SPI_RX_IN_PROGRESS) {
     }
 
     return (SSP1BUF);
 }
 
-uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
-{
+uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut) {
     uint8_t bytesWritten = 0;
 
-    if(bufLen != 0)
-    {
-        if(dataIn != NULL)
-        {
-            while(bytesWritten < bufLen)
-            {
-                if(dataOut == NULL)
-                {
+    if (bufLen != 0) {
+        if (dataIn != NULL) {
+            while (bytesWritten < bufLen) {
+                if (dataOut == NULL) {
                     SPI1_Exchange8bit(dataIn[bytesWritten]);
-                }
-                else
-                {
+                } else {
                     dataOut[bytesWritten] = SPI1_Exchange8bit(dataIn[bytesWritten]);
                 }
 
                 bytesWritten++;
             }
-        }
-        else
-        {
-            if(dataOut != NULL)
-            {
-                while(bytesWritten < bufLen )
-                {
+        } else {
+            if (dataOut != NULL) {
+                while (bytesWritten < bufLen) {
                     dataOut[bytesWritten] = SPI1_Exchange8bit(DUMMY_DATA);
 
                     bytesWritten++;
@@ -141,20 +126,17 @@ uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOu
     return bytesWritten;
 }
 
-bool SPI1_IsBufferFull(void)
-{
+bool SPI1_IsBufferFull(void) {
     return (SSP1STATbits.BF);
 }
 
-bool SPI1_HasWriteCollisionOccured(void)
-{
+bool SPI1_HasWriteCollisionOccured(void) {
     return (SSP1CON1bits.WCOL);
 }
 
-void SPI1_ClearWriteCollisionStatus(void)
-{
+void SPI1_ClearWriteCollisionStatus(void) {
     SSP1CON1bits.WCOL = 0;
 }
 /**
  End of File
-*/
+ */
