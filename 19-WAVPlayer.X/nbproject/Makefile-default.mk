@@ -79,7 +79,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=PIC16F18855
-ProjectDir=/Users/m91329/Developer/MPLABXProjects/XPRESS/In_10_Line-Extra/19-WAVPlayer.X
+ProjectDir=/Users/m91329/Developer/MPLABXProjects/XPRESS/In_10_Lines-Extra/19-WAVPlayer.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/19-WAVPlayer.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}
