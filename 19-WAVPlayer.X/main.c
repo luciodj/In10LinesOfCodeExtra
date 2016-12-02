@@ -1,25 +1,21 @@
 /**
-  Generated Main Source File
-
-  Company:
-    Microchip Technology Inc.
+ WAV Player
 
   File Name:
     main.c
 
-  Summary:
-    This is the main file generated using MPLAB(c) Code Configurator
+ Author:
+    Lucio Di Jasio
 
-  Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
-    Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
-        Device            :  PIC16F18855
-        Driver Version    :  2.00
-    The generated drivers are tested against the following:
-        Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+  Summary:
+    Playback of Audio files from SD Card (microSD Click© board)
+    Support 44.100 Hz mono (uncompressed) WAV files
+    Board: XPRESS Evaluation Board (DM164140)
+
+ *   Description:
+        Compiler          :  XC8 1.38
+        MPLAB             :  MPLAB X 3.45
+ */
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -47,45 +43,41 @@
 #include "Wave.h"
 #include "fileio.h"
 
-void main(void)
-{
-    unsigned long lc;   // file length
-    MFILE* fp;          // file pointer
+void main(void) {
+    unsigned long lc; // file length
+    MFILE* fp; // file pointer
     unsigned int entry; // current piece
 
     SYSTEM_Initialize();
 
     LED0_LAT = 0;
     LED1_LAT = 0;
-    
+
     puts("Xpress WAV Player");
-    
-    while  (1)  // main loop
+
+    while (1) // main loop
     {
-        if (mount() != 0)
-        {
-            LED0_LAT = 1;       // turn on LED0 if mount successful
+        if (mount() != 0) {
+            LED0_LAT = 1; // turn on LED0 if mount successful
             puts("SD card found");
             entry = 0;
 
             // look for a  WAV file
-            while ((fp = ffindM("WAV", &entry)) != NULL)
-            {
+            while ((fp = ffindM("WAV", &entry)) != NULL) {
                 puts("WAV file(s) found, ready to play");
-                LED0_LAT = 0;       // turn off lED0 to save power
-                LED1_LAT = 1;       // turn on LED1 if mount successful
+                LED0_LAT = 0; // turn off lED0 to save power
+                LED1_LAT = 1; // turn on LED1 if mount successful
                 // wait for button press
                 while (SW1_GetValue());
                 // wait for button release
                 while (!SW1_GetValue());
-                LED1_LAT = 0;       // turn off LED1 to save power
+                LED1_LAT = 0; // turn off LED1 to save power
 
                 lc = InitWAV(fp);
                 Play(fp, lc);
-            } // while 
-        }
-        else {
-            LED0_LAT = 0;       // mounting error
+            } // while
+        } else {
+            LED0_LAT = 0; // mounting error
             printf("mount failed with code: %02x\n", FError);
             __delay_ms(250);
         }

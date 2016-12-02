@@ -51,13 +51,19 @@
 #include "tmr2.h"
 
 /**
+  Section: Global Variables Definitions
+ */
+
+void (*TMR2_InterruptHandler)(void);
+
+/**
   Section: TMR2 APIs
  */
 
 void TMR2_Initialize(void) {
     // Set TMR2 to the options selected in the User Interface
 
-    // T2CKPS 1:1; T2OUTPS 1:1; TMR2ON on;
+    // T2CKPS 1:1; T2OUTPS 1:1; TMR2ON off;
     T2CON = 0x00;
 
     // T2CS FOSC/4;
@@ -69,8 +75,8 @@ void TMR2_Initialize(void) {
     // T2RSEL T2CKIPPS pin;
     T2RST = 0x00;
 
-    // PR2 176;
-    T2PR = 0xB0;
+    // PR2 179;
+    T2PR = 0xB3;
 
     // TMR2 0;
     T2TMR = 0x00;

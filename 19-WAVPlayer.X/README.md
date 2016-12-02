@@ -12,9 +12,5 @@ Need:
 ## The Basic Idea
 1. Connect a microSD Click© board  (3V)
 2. Launch MPLAB X and MPLAB Code Configurator to quickly initialise all the peripherals
-3. Play music/voice at 22050 Hz ()8-bit mono)...
-
-
-## Limitations
-* Play 8-bit mono files only, with extension WAV
+3. Play music/voice at 44100 Hz ()8-bit mono)...
 
