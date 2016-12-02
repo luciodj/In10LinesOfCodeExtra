@@ -13,12 +13,12 @@
   Description:
     This header file provides implementations for pin APIs for all pins selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 4.0
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC16F18855
         Driver Version    :  1.02
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.40
+        MPLAB             :  MPLAB X 3.20
 
     Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
 
@@ -41,52 +41,29 @@
     SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
 
- */
+*/
 
 #include <xc.h>
 #include "pin_manager.h"
-#include "stdbool.h"
+#include <stdbool.h>
 
-void PIN_MANAGER_Initialize(void) {
-    /**
-    LATx registers
-     */
-    LATA = 0x00;
-    LATB = 0x00;
-    LATC = 0x02;
-
-    /**
-    TRISx registers
-     */
-    TRISA = 0xF0;
-    TRISB = 0xD3;
+void PIN_MANAGER_Initialize(void)
+{
+    LATB = 0x4;
+    WPUE = 0x8;
+    LATA = 0x0;
+    LATC = 0x41;
+    WPUA = 0xD0;
+    WPUB = 0xC1;
+    WPUC = 0x78;
+    ANSELA = 0xDF;
+    ANSELB = 0xEE;
+    ANSELC = 0xF9;
+    TRISB = 0xD1;
     TRISC = 0x7E;
+    TRISA = 0xF0;
 
-    /**
-    ANSELx registers
-     */
-    ANSELC = 0x75;
-    ANSELB = 0xC7;
-    ANSELA = 0xD0;
-
-    /**
-    WPUx registers
-     */
-    WPUE = 0x00;
-    WPUB = 0x00;
-    WPUA = 0x00;
-    WPUC = 0x00;
-
-    /**
-    ODx registers
-     */
-    ODCONA = 0x00;
-    ODCONB = 0x00;
-    ODCONC = 0x00;
-
-
-
-
+    
 
 
     bool state = GIE;
@@ -95,28 +72,26 @@ void PIN_MANAGER_Initialize(void) {
     PPSLOCK = 0xAA;
     PPSLOCKbits.PPSLOCKED = 0x00; // unlock PPS
 
-    T2AINPPSbits.T2AINPPS = 0x13; //RC3->TMR2:T2IN;
-    RC0PPS = 0x10; //RC0->EUSART:TX;
-    SSP1DATPPSbits.SSP1DATPPS = 0x0C; //RB4->MSSP1:SDI1;
-    SSP1CLKPPSbits.SSP1CLKPPS = 0x0b; //RB3->MSSP1:SCK1;
-    RXPPSbits.RXPPS = 0x11; //RC1->EUSART:RX;
-    RB5PPS = 0x15; //RB5->MSSP1:SDO1;
-    RB3PPS = 0x14; //RB3->MSSP1:SCK1;
-    RC5PPS = 0x06; //RC5->CWG1:CWG1B;
-    RC7PPS = 0x0F; //RC7->PWM7:PWM7OUT;
-    CWG1PPSbits.CWG1PPS = 0x08; //RB0->CWG1:CWG1IN;
+    RC0PPS = 0x10;   //RC0->EUSART:TX;
+    SSP1DATPPSbits.SSP1DATPPS = 0x0C;   //RB4->MSSP1:SDI1;
+    RXPPSbits.RXPPS = 0x11;   //RC1->EUSART:RX;
+    ADCACTPPS = 0x08;   //RB0->ADCC:ADCACT;
+    RB5PPS = 0x15;   //RB5->MSSP1:SDO1;
+    RB3PPS = 0x14;   //RB3->MSSP1:SCK1;
 
     PPSLOCK = 0x55;
     PPSLOCK = 0xAA;
     PPSLOCKbits.PPSLOCKED = 0x01; // lock PPS
 
     GIE = state;
+
 }
 
-void PIN_MANAGER_IOC(void) {
 
+void PIN_MANAGER_IOC(void)
+{    
 }
 
 /**
  End of File
- */
+*/

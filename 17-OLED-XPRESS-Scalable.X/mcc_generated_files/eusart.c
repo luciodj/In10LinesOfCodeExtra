@@ -13,13 +13,13 @@
   @Description
     This header file provides implementations for driver APIs for EUSART.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 4.0
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.40
- */
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -41,67 +41,77 @@
 
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
- */
+*/
 
 /**
   Section: Included Files
- */
+*/
 #include "eusart.h"
 
 /**
   Section: EUSART APIs
- */
+*/
 
-void EUSART_Initialize(void) {
+void EUSART_Initialize(void)
+{
     // Set the EUSART module to the options selected in the user interface.
 
-    // ABDOVF no_overflow; SCKP Non-Inverted; BRG16 16bit_generator; WUE disabled; ABDEN disabled;
+    // ABDOVF no_overflow; SCKP Non-Inverted; BRG16 16bit_generator; WUE disabled; ABDEN disabled; 
     BAUD1CON = 0x08;
 
-    // SPEN enabled; RX9 8-bit; CREN enabled; ADDEN disabled; SREN disabled;
+    // SPEN enabled; RX9 8-bit; CREN enabled; ADDEN disabled; SREN disabled; 
     RC1STA = 0x90;
 
-    // TX9 8-bit; TX9D 0; SENDB sync_break_complete; TXEN enabled; SYNC asynchronous; BRGH hi_speed; CSRC slave;
+    // TX9 8-bit; TX9D 0; SENDB sync_break_complete; TXEN enabled; SYNC asynchronous; BRGH hi_speed; CSRC slave; 
     TX1STA = 0x24;
 
-    // Baud Rate = 9600; SP1BRGL 64;
-    SP1BRGL = 0x40;
+    // Baud Rate = 9600; SP1BRGL 25; 
+    SP1BRGL = 0x19;
 
-    // Baud Rate = 9600; SP1BRGH 3;
-    SP1BRGH = 0x03;
+    // Baud Rate = 9600; SP1BRGH 0; 
+    SP1BRGH = 0x00;
 
 }
 
-uint8_t EUSART_Read(void) {
 
-    while (!PIR3bits.RCIF) {
+uint8_t EUSART_Read(void)
+{
+
+   RC1STAbits.SREN = 1;
+    while(!PIR3bits.RCIF)
+    {
     }
 
-
-    if (1 == RC1STAbits.OERR) {
+    
+    if(1 == RC1STAbits.OERR)
+    {
         // EUSART error - restart
 
-        RC1STAbits.CREN = 0;
-        RC1STAbits.CREN = 1;
+        RC1STAbits.SPEN = 0; 
+        RC1STAbits.SPEN = 1; 
     }
 
     return RC1REG;
 }
 
-void EUSART_Write(uint8_t txData) {
-    while (0 == PIR3bits.TXIF) {
+void EUSART_Write(uint8_t txData)
+{
+    while(0 == PIR3bits.TXIF)
+    {
     }
 
-    TX1REG = txData; // Write the data byte to the USART.
+    TX1REG = txData;    // Write the data byte to the USART.
 }
 
-char getch(void) {
+char getch(void)
+{
     return EUSART_Read();
 }
 
-void putch(char txData) {
+void putch(char txData)
+{
     EUSART_Write(txData);
 }
 /**
   End of File
- */
+*/

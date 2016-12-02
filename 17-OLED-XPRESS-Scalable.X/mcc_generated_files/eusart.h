@@ -13,13 +13,13 @@
   @Description
     This header file provides APIs for driver for EUSART.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 4.0
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.40
- */
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -41,14 +41,14 @@
 
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
- */
+*/
 
 #ifndef _EUSART_H
 #define _EUSART_H
 
 /**
   Section: Included Files
- */
+*/
 
 #include <xc.h>
 #include <stdbool.h>
@@ -57,90 +57,90 @@
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+    extern "C" {
 
 #endif
 
 
-    /**
-      Section: Macro Declarations
-     */
+/**
+  Section: Macro Declarations
+*/
 
 #define EUSART_DataReady  (PIR3bits.RCIF)
 
-    /**
-      Section: EUSART APIs
-     */
+/**
+  Section: EUSART APIs
+*/
 
-    /**
-      @Summary
-        Initialization routine that takes inputs from the EUSART GUI.
+/**
+  @Summary
+    Initialization routine that takes inputs from the EUSART GUI.
 
-      @Description
-        This routine initializes the EUSART driver.
-        This routine must be called before any other EUSART routine is called.
+  @Description
+    This routine initializes the EUSART driver.
+    This routine must be called before any other EUSART routine is called.
 
-      @Preconditions
-        None
+  @Preconditions
+    None
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
+  @Returns
+    None
 
-      @Comment
+  @Comment
+    
+*/
+void EUSART_Initialize(void);
 
-     */
-    void EUSART_Initialize(void);
+/**
+  @Summary
+    Read a byte of data from the EUSART.
 
-    /**
-      @Summary
-        Read a byte of data from the EUSART.
+  @Description
+    This routine reads a byte of data from the EUSART.
 
-      @Description
-        This routine reads a byte of data from the EUSART.
+  @Preconditions
+    EUSART_Initialize() function should have been called
+    before calling this function. The transfer status should be checked to see
+    if the receiver is not empty before calling this function.
 
-      @Preconditions
-        EUSART_Initialize() function should have been called
-        before calling this function. The transfer status should be checked to see
-        if the receiver is not empty before calling this function.
+  @Param
+    None
 
-      @Param
-        None
+  @Returns
+    A data byte received by the driver.
+*/
+uint8_t EUSART_Read(void);
 
-      @Returns
-        A data byte received by the driver.
-     */
-    uint8_t EUSART_Read(void);
+ /**
+  @Summary
+    Writes a byte of data to the EUSART.
 
-    /**
-     @Summary
-       Writes a byte of data to the EUSART.
+  @Description
+    This routine writes a byte of data to the EUSART.
 
-     @Description
-       This routine writes a byte of data to the EUSART.
+  @Preconditions
+    EUSART_Initialize() function should have been called
+    before calling this function. The transfer status should be checked to see
+    if transmitter is not busy before calling this function.
 
-     @Preconditions
-       EUSART_Initialize() function should have been called
-       before calling this function. The transfer status should be checked to see
-       if transmitter is not busy before calling this function.
+  @Param
+    txData  - Data byte to write to the EUSART
 
-     @Param
-       txData  - Data byte to write to the EUSART
-
-     @Returns
-       None
-     */
-    void EUSART_Write(uint8_t txData);
+  @Returns
+    None
+*/
+void EUSART_Write(uint8_t txData);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-}
+    }
 
 #endif
 
 #endif  // _EUSART_H
 /**
  End of File
- */
+*/
